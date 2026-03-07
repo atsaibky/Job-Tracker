@@ -1,0 +1,360 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e2]:
+  - region "Notifications (F8)":
+    - list
+  - generic [ref=e3]:
+    - banner [ref=e4]:
+      - generic [ref=e6]:
+        - generic [ref=e7]:
+          - img [ref=e9]
+          - generic [ref=e12]:
+            - heading "JobTrackr" [level=1] [ref=e13]
+            - paragraph [ref=e14]: 17 prospects tracked
+        - button "Add Prospect" [ref=e15] [cursor=pointer]:
+          - img
+          - text: Add Prospect
+    - main [ref=e16]:
+      - generic [ref=e17]:
+        - generic [ref=e18]:
+          - generic [ref=e19]:
+            - generic [ref=e20]:
+              - heading "Bookmarked" [level=3] [ref=e22]
+              - generic [ref=e23]: "7"
+            - combobox [ref=e24] [cursor=pointer]:
+              - generic: All
+              - img [ref=e25]
+          - generic [ref=e28]:
+            - generic [ref=e29] [cursor=pointer]:
+              - generic [ref=e30]:
+                - generic [ref=e31]:
+                  - heading "E2EPersistSalaryCo" [level=4] [ref=e32]
+                  - paragraph [ref=e33]: Dev
+                - generic [ref=e34]:
+                  - button [ref=e35]:
+                    - img
+                  - button [ref=e36]:
+                    - img
+              - generic [ref=e38]:
+                - img [ref=e39]
+                - text: High
+            - generic [ref=e41] [cursor=pointer]:
+              - generic [ref=e42]:
+                - generic [ref=e43]:
+                  - heading "fsdfd" [level=4] [ref=e44]
+                  - paragraph [ref=e45]: sdfdsfsdd
+                - generic [ref=e46]:
+                  - button [ref=e47]:
+                    - img
+                  - button [ref=e48]:
+                    - img
+              - generic [ref=e50]:
+                - img [ref=e51]
+                - text: Medium
+            - generic [ref=e53] [cursor=pointer]:
+              - generic [ref=e54]:
+                - generic [ref=e55]:
+                  - heading "Slack" [level=4] [ref=e56]
+                  - paragraph [ref=e57]: Software Engineer
+                - generic [ref=e58]:
+                  - button [ref=e59]:
+                    - img
+                  - button [ref=e60]:
+                    - img
+              - generic [ref=e62]:
+                - img [ref=e63]
+                - text: Low
+              - link "Posting" [ref=e64]:
+                - /url: https://slack.com/careers/7777
+                - img [ref=e65]
+                - text: Posting
+              - paragraph [ref=e69]: Interesting but unsure about fit
+            - generic [ref=e70] [cursor=pointer]:
+              - generic [ref=e71]:
+                - generic [ref=e72]:
+                  - heading "Microsoft" [level=4] [ref=e73]
+                  - paragraph [ref=e74]: Full Stack Developer
+                - generic [ref=e75]:
+                  - button [ref=e76]:
+                    - img
+                  - button [ref=e77]:
+                    - img
+              - generic [ref=e79]:
+                - img [ref=e80]
+                - text: Medium
+              - link "Posting" [ref=e82]:
+                - /url: https://careers.microsoft.com/jobs/9012
+                - img [ref=e83]
+                - text: Posting
+              - paragraph [ref=e87]: Interesting role in Azure team
+            - generic [ref=e88] [cursor=pointer]:
+              - generic [ref=e89]:
+                - generic [ref=e90]:
+                  - heading "Stripe" [level=4] [ref=e91]
+                  - paragraph [ref=e92]: Product Engineer
+                - generic [ref=e93]:
+                  - button [ref=e94]:
+                    - img
+                  - button [ref=e95]:
+                    - img
+              - generic [ref=e97]:
+                - img [ref=e98]
+                - text: High
+              - link "Posting" [ref=e100]:
+                - /url: https://stripe.com/jobs/2222
+                - img [ref=e101]
+                - text: Posting
+              - paragraph [ref=e105]: Dream company, preparing application
+            - generic [ref=e106] [cursor=pointer]:
+              - generic [ref=e107]:
+                - generic [ref=e108]:
+                  - heading "Pizza" [level=4] [ref=e109]
+                  - paragraph [ref=e110]: "123"
+                - generic [ref=e111]:
+                  - button [ref=e112]:
+                    - img
+                  - button [ref=e113]:
+                    - img
+              - generic [ref=e115]:
+                - img [ref=e116]
+                - text: High
+            - generic [ref=e118] [cursor=pointer]:
+              - generic [ref=e119]:
+                - generic [ref=e120]:
+                  - heading "Google" [level=4] [ref=e121]
+                  - paragraph [ref=e122]: TPM
+                - generic [ref=e123]:
+                  - button [ref=e124]:
+                    - img
+                  - button [ref=e125]:
+                    - img
+              - generic [ref=e127]:
+                - img [ref=e128]
+                - text: Medium
+        - generic [ref=e130]:
+          - generic [ref=e131]:
+            - generic [ref=e132]:
+              - heading "Applied" [level=3] [ref=e134]
+              - generic [ref=e135]: "4"
+            - combobox [ref=e136] [cursor=pointer]:
+              - generic: All
+              - img [ref=e137]
+          - generic [ref=e140]:
+            - generic [ref=e141] [cursor=pointer]:
+              - generic [ref=e142]:
+                - generic [ref=e143]:
+                  - heading "Meta" [level=4] [ref=e144]
+                  - paragraph [ref=e145]: Frontend Engineer
+                - generic [ref=e146]:
+                  - button [ref=e147]:
+                    - img
+                  - button [ref=e148]:
+                    - img
+              - generic [ref=e150]:
+                - img [ref=e151]
+                - text: Low
+              - link "Posting" [ref=e152]:
+                - /url: https://metacareers.com/jobs/7890
+                - img [ref=e153]
+                - text: Posting
+              - paragraph [ref=e157]: Remote position, large team
+            - generic [ref=e158] [cursor=pointer]:
+              - generic [ref=e159]:
+                - generic [ref=e160]:
+                  - heading "Spotify" [level=4] [ref=e161]
+                  - paragraph [ref=e162]: Backend Engineer
+                - generic [ref=e163]:
+                  - button [ref=e164]:
+                    - img
+                  - button [ref=e165]:
+                    - img
+              - generic [ref=e167]:
+                - img [ref=e168]
+                - text: Medium
+              - link "Posting" [ref=e170]:
+                - /url: https://lifeatspotify.com/jobs/3333
+                - img [ref=e171]
+                - text: Posting
+              - paragraph [ref=e175]: Music streaming infrastructure
+            - generic [ref=e176] [cursor=pointer]:
+              - generic [ref=e177]:
+                - generic [ref=e178]:
+                  - heading "Google" [level=4] [ref=e179]
+                  - paragraph [ref=e180]: Senior Software Engineer
+                - generic [ref=e181]:
+                  - button [ref=e182]:
+                    - img
+                  - button [ref=e183]:
+                    - img
+              - generic [ref=e185]:
+                - img [ref=e186]
+                - text: High
+              - link "Posting" [ref=e188]:
+                - /url: https://careers.google.com/jobs/1234
+                - img [ref=e189]
+                - text: Posting
+              - paragraph [ref=e193]: Great team culture, strong comp package
+            - generic [ref=e194] [cursor=pointer]:
+              - generic [ref=e195]:
+                - generic [ref=e196]:
+                  - heading "Apple" [level=4] [ref=e197]
+                  - paragraph [ref=e198]: Power-point kids
+                - generic [ref=e199]:
+                  - button [ref=e200]:
+                    - img
+                  - button [ref=e201]:
+                    - img
+              - generic [ref=e203]:
+                - img [ref=e204]
+                - text: Low
+        - generic [ref=e205]:
+          - generic [ref=e206]:
+            - generic [ref=e207]:
+              - heading "Phone Screen" [level=3] [ref=e209]
+              - generic [ref=e210]: "1"
+            - combobox [ref=e211] [cursor=pointer]:
+              - generic: All
+              - img [ref=e212]
+          - generic [ref=e216] [cursor=pointer]:
+            - generic [ref=e217]:
+              - generic [ref=e218]:
+                - heading "Amazon" [level=4] [ref=e219]
+                - paragraph [ref=e220]: Software Development Engineer
+              - generic [ref=e221]:
+                - button [ref=e222]:
+                  - img
+                - button [ref=e223]:
+                  - img
+            - generic [ref=e225]:
+              - img [ref=e226]
+              - text: Medium
+            - link "Posting" [ref=e228]:
+              - /url: https://amazon.jobs/en/jobs/3456
+              - img [ref=e229]
+              - text: Posting
+            - paragraph [ref=e233]: Recruiter reached out on LinkedIn
+        - generic [ref=e234]:
+          - generic [ref=e235]:
+            - generic [ref=e236]:
+              - heading "Interviewing" [level=3] [ref=e238]
+              - generic [ref=e239]: "2"
+            - combobox [ref=e240] [cursor=pointer]:
+              - generic: All
+              - img [ref=e241]
+          - generic [ref=e244]:
+            - generic [ref=e245] [cursor=pointer]:
+              - generic [ref=e246]:
+                - generic [ref=e247]:
+                  - heading "Shopify" [level=4] [ref=e248]
+                  - paragraph [ref=e249]: Senior Developer
+                - generic [ref=e250]:
+                  - button [ref=e251]:
+                    - img
+                  - button [ref=e252]:
+                    - img
+              - generic [ref=e254]:
+                - img [ref=e255]
+                - text: Medium
+              - link "Posting" [ref=e257]:
+                - /url: https://shopify.com/careers/6666
+                - img [ref=e258]
+                - text: Posting
+              - paragraph [ref=e262]: Second round scheduled
+            - generic [ref=e263] [cursor=pointer]:
+              - generic [ref=e264]:
+                - generic [ref=e265]:
+                  - heading "Apple" [level=4] [ref=e266]
+                  - paragraph [ref=e267]: iOS Developer
+                - generic [ref=e268]:
+                  - button [ref=e269]:
+                    - img
+                  - button [ref=e270]:
+                    - img
+              - generic [ref=e272]:
+                - img [ref=e273]
+                - text: High
+              - link "Posting" [ref=e275]:
+                - /url: https://jobs.apple.com/en-us/details/5678
+                - img [ref=e276]
+                - text: Posting
+              - paragraph [ref=e280]: Phone screen went well, on-site next week
+        - generic [ref=e281]:
+          - generic [ref=e282]:
+            - generic [ref=e283]:
+              - heading "Offer" [level=3] [ref=e285]
+              - generic [ref=e286]: "1"
+            - combobox [ref=e287] [cursor=pointer]:
+              - generic: All
+              - img [ref=e288]
+          - generic [ref=e292] [cursor=pointer]:
+            - generic [ref=e293]:
+              - generic [ref=e294]:
+                - heading "Netflix" [level=4] [ref=e295]
+                - paragraph [ref=e296]: UI Engineer
+              - generic [ref=e297]:
+                - button [ref=e298]:
+                  - img
+                - button [ref=e299]:
+                  - img
+            - generic [ref=e301]:
+              - img [ref=e302]
+              - text: High
+            - link "Posting" [ref=e304]:
+              - /url: https://jobs.netflix.com/jobs/1111
+              - img [ref=e305]
+              - text: Posting
+            - paragraph [ref=e309]: Excellent offer, negotiating salary
+        - generic [ref=e310]:
+          - generic [ref=e311]:
+            - generic [ref=e312]:
+              - heading "Rejected" [level=3] [ref=e314]
+              - generic [ref=e315]: "1"
+            - combobox [ref=e316] [cursor=pointer]:
+              - generic: All
+              - img [ref=e317]
+          - generic [ref=e321] [cursor=pointer]:
+            - generic [ref=e322]:
+              - generic [ref=e323]:
+                - heading "Airbnb" [level=4] [ref=e324]
+                - paragraph [ref=e325]: Software Engineer
+              - generic [ref=e326]:
+                - button [ref=e327]:
+                  - img
+                - button [ref=e328]:
+                  - img
+            - generic [ref=e330]:
+              - img [ref=e331]
+              - text: Medium
+            - link "Posting" [ref=e333]:
+              - /url: https://careers.airbnb.com/positions/4444
+              - img [ref=e334]
+              - text: Posting
+            - paragraph [ref=e338]: Did not pass final round
+        - generic [ref=e339]:
+          - generic [ref=e340]:
+            - generic [ref=e341]:
+              - heading "Withdrawn" [level=3] [ref=e343]
+              - generic [ref=e344]: "1"
+            - combobox [ref=e345] [cursor=pointer]:
+              - generic: All
+              - img [ref=e346]
+          - generic [ref=e350] [cursor=pointer]:
+            - generic [ref=e351]:
+              - generic [ref=e352]:
+                - heading "Uber" [level=4] [ref=e353]
+                - paragraph [ref=e354]: Platform Engineer
+              - generic [ref=e355]:
+                - button [ref=e356]:
+                  - img
+                - button [ref=e357]:
+                  - img
+            - generic [ref=e359]:
+              - img [ref=e360]
+              - text: Low
+            - link "Posting" [ref=e361]:
+              - /url: https://uber.com/careers/5555
+              - img [ref=e362]
+              - text: Posting
+            - paragraph [ref=e366]: Found better opportunity elsewhere
+```
