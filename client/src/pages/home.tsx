@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import type { Prospect } from "@shared/schema";
 import { STATUSES, INTEREST_LEVELS } from "@shared/schema";
+import { filterByInterest, type InterestFilter } from "@shared/prospect-filters";
 import { ProspectCard } from "@/components/prospect-card";
 import { AddProspectForm } from "@/components/add-prospect-form";
 import { Briefcase, Plus } from "lucide-react";
@@ -22,8 +23,6 @@ import {
 } from "@/components/ui/select";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Badge } from "@/components/ui/badge";
-
-type InterestFilter = "All" | typeof INTEREST_LEVELS[number];
 
 const columnColors: Record<string, string> = {
   Bookmarked: "bg-blue-500",
@@ -48,10 +47,7 @@ function KanbanColumn({
   interestFilter: InterestFilter;
   onInterestFilterChange: (value: InterestFilter) => void;
 }) {
-  const filteredProspects =
-    interestFilter === "All"
-      ? prospects
-      : prospects.filter((p) => p.interestLevel === interestFilter);
+  const filteredProspects = filterByInterest(prospects, interestFilter);
 
   const statusSlug = status.replace(/\s+/g, "-").toLowerCase();
 

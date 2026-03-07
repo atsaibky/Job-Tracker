@@ -2,7 +2,8 @@
 module.exports = {
   preset: "ts-jest",
   testEnvironment: "node",
-  roots: ["<rootDir>/server"],
+  roots: ["<rootDir>/server", "<rootDir>/shared"],
+  testMatch: ["**/__tests__/**/*.test.ts"],
   moduleNameMapper: {
     "^@shared/(.*)$": "<rootDir>/shared/$1",
   },

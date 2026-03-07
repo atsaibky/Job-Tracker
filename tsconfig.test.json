@@ -1,6 +1,6 @@
 {
   "extends": "./tsconfig.json",
-  "include": ["server/**/*.test.ts", "shared/**/*"],
+  "include": ["server/**/*.test.ts", "shared/**/*.test.ts", "shared/*.ts"],
   "compilerOptions": {
     "types": ["jest", "node"]
   }
