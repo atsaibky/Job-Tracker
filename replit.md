@@ -12,6 +12,8 @@ A Kanban-style job search tracker built with React, Express, and PostgreSQL. Pro
 
 ```
 shared/schema.ts              - Database table definition, Zod validation, TypeScript types
+shared/prospect-filters.ts    - Pure filter helpers (filterByInterest) used by frontend
+shared/__tests__/             - Unit tests for shared helpers
 server/
   index.ts                    - Express app bootstrap, middleware, server start
   db.ts                       - PostgreSQL connection pool (Drizzle)
@@ -46,3 +48,4 @@ Single `prospects` table: id, company_name, role_title, job_url, status, interes
 
 - `npm run dev` starts the full app (Express + Vite)
 - `npm run db:push` syncs schema to database
+- `npm test` runs all unit tests (server + shared)
