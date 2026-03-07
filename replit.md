@@ -32,7 +32,7 @@ client/src/
 
 ## Database
 
-Single `prospects` table: id, company_name, role_title, job_url, status, interest_level, notes, created_at.
+Single `prospects` table: id, company_name, role_title, job_url, status, interest_level, notes, target_salary, created_at.
 
 - **Statuses**: Bookmarked, Applied, Phone Screen, Interviewing, Offer, Rejected, Withdrawn
 - **Interest levels**: High, Medium, Low
@@ -44,8 +44,13 @@ Single `prospects` table: id, company_name, role_title, job_url, status, interes
 - `PATCH /api/prospects/:id` - partial update with field validation
 - `DELETE /api/prospects/:id` - delete
 
+## Testing
+
+- `npm test` runs all unit tests (Jest, server + shared)
+- `PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH=$(which chromium) npx playwright test` runs E2E tests (Playwright + Chromium)
+- E2E tests live in `e2e/` directory, config in `playwright.config.ts`
+
 ## Running
 
 - `npm run dev` starts the full app (Express + Vite)
 - `npm run db:push` syncs schema to database
-- `npm test` runs all unit tests (server + shared)
