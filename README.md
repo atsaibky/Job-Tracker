@@ -1,6 +1,16 @@
-# JobTrackr - Alan Version
+# JobTrackr
 
-A Kanban-style job search tracker. Organize your job prospects across pipeline stages, from Bookmarked through Offer (or Rejected/Withdrawn). Built with React, Express, and PostgreSQL.
+A Kanban-style job search tracker. Organize your job prospects across pipeline stages — from Bookmarked through Offer (or Rejected/Withdrawn). Drag and drop cards between columns, filter by interest level, and track target salaries. Built with React, Express, and PostgreSQL.
+
+---
+
+## Features
+
+- **Drag-and-drop Kanban board**: Drag prospect cards between any of the 7 status columns. The status updates in the database immediately and persists across page refreshes.
+- **Column highlighting**: When dragging a card, the target column highlights to indicate where it will land.
+- **Interest level filtering**: Each column has an independent filter dropdown (All / High / Medium / Low). Column counts update to reflect the active filter.
+- **Prospect management**: Create, edit, and delete prospects through dialog forms. Track company name, role title, job URL, interest level, target salary, and notes.
+- **Target salary tracking**: Optional salary field displayed on cards with dollar formatting.
 
 ---
 
@@ -9,22 +19,30 @@ A Kanban-style job search tracker. Organize your job prospects across pipeline s
 ```
 jobtrackr/
 ├── shared/
-│   └── schema.ts                    # Drizzle table definition, Zod schemas, TS types
+│   ├── schema.ts                    # Drizzle table definition, Zod schemas, TS types
+│   ├── prospect-filters.ts          # Pure filter helper (filterByInterest)
+│   └── __tests__/                   # Unit tests for shared logic
+│       ├── prospect-filters.test.ts
+│       ├── salary-validation.test.ts
+│       └── status-transitions.test.ts
 ├── server/
 │   ├── index.ts                     # Express app setup, middleware, server start
 │   ├── db.ts                        # PostgreSQL connection pool via Drizzle ORM
 │   ├── routes.ts                    # API route handlers for /api/prospects
 │   ├── storage.ts                   # IStorage interface + DatabaseStorage implementation
-│   └── prospect-helpers.ts          # Pure functions: getNextStatus, validateProspect, isTerminalStatus
+│   ├── prospect-helpers.ts          # Pure functions: getNextStatus, validateProspect, isTerminalStatus
+│   └── __tests__/                   # Server unit and integration tests
+│       ├── prospect-validation.test.ts
+│       └── routes-integration.test.ts
 ├── client/
 │   ├── index.html                   # HTML entry point
 │   └── src/
 │       ├── App.tsx                  # Root component: providers, router
 │       ├── main.tsx                 # Vite entry point, renders App
 │       ├── pages/
-│       │   └── home.tsx             # Kanban board with 7 status columns
+│       │   └── home.tsx             # Kanban board with drag-and-drop, 7 status columns
 │       ├── components/
-│       │   ├── prospect-card.tsx    # Single prospect card (click to edit, hover for delete)
+│       │   ├── prospect-card.tsx    # Single prospect card (drag-aware, click to edit, hover for delete)
 │       │   ├── add-prospect-form.tsx    # Dialog form for creating a new prospect
 │       │   ├── edit-prospect-form.tsx   # Dialog form for editing an existing prospect
 │       │   └── ui/                  # shadcn/ui component library (Button, Card, Dialog, etc.)
@@ -33,12 +51,30 @@ jobtrackr/
 │       └── lib/
 │           ├── queryClient.ts       # TanStack Query client + apiRequest helper
 │           └── utils.ts             # Tailwind class merge utility
+├── e2e/                             # Playwright end-to-end test specs
+│   ├── drag-and-drop.spec.ts
+│   └── filter-and-salary.spec.ts
 ├── drizzle.config.ts                # Drizzle Kit config (points to shared/schema.ts)
+├── jest.config.cjs                  # Jest config for unit/integration tests
+├── playwright.config.ts             # Playwright config for E2E tests
 ├── tailwind.config.ts               # Tailwind theme tokens and plugin config
 ├── vite.config.ts                   # Vite config with path aliases (@, @shared, @assets)
 ├── tsconfig.json                    # TypeScript config
-└── package.json                     # Scripts: dev, build, start, db:push
+├── tsconfig.test.json               # TypeScript config for test files
+└── package.json                     # Scripts: dev, build, start, db:push, test
 ```
+
+---
+
+## Tech Stack
+
+| Layer       | Technology                                                            |
+|-------------|-----------------------------------------------------------------------|
+| Frontend    | React 18, Vite, Tailwind CSS, shadcn/ui, TanStack React Query, wouter |
+| Drag & Drop | @hello-pangea/dnd                                                     |
+| Backend     | Express.js (TypeScript)                                               |
+| Database    | PostgreSQL, Drizzle ORM, drizzle-zod                                  |
+| Testing     | Jest, supertest, Playwright                                           |
 
 ---
 
@@ -48,16 +84,17 @@ jobtrackr/
 
 A single PostgreSQL table stores all job prospects. No joins, no relations.
 
-| Column          | Type         | Constraints                         |
-|-----------------|--------------|-------------------------------------|
-| `id`            | `SERIAL`     | Primary key, auto-increment         |
-| `company_name`  | `TEXT`        | NOT NULL                            |
-| `role_title`    | `TEXT`        | NOT NULL                            |
-| `job_url`       | `TEXT`        | Nullable                            |
-| `status`        | `TEXT`        | NOT NULL, default `'Bookmarked'`    |
-| `interest_level`| `TEXT`        | NOT NULL, default `'Medium'`        |
-| `notes`         | `TEXT`        | Nullable                            |
-| `created_at`    | `TIMESTAMPTZ` | NOT NULL, default `NOW()`           |
+| Column          | Type          | Constraints                         |
+|-----------------|---------------|-------------------------------------|
+| `id`            | `SERIAL`      | Primary key, auto-increment         |
+| `company_name`  | `TEXT`         | NOT NULL                            |
+| `role_title`    | `TEXT`         | NOT NULL                            |
+| `job_url`       | `TEXT`         | Nullable                            |
+| `status`        | `TEXT`         | NOT NULL, default `'Bookmarked'`    |
+| `interest_level`| `TEXT`         | NOT NULL, default `'Medium'`        |
+| `notes`         | `TEXT`         | Nullable                            |
+| `target_salary` | `INTEGER`     | Nullable                            |
+| `created_at`    | `TIMESTAMPTZ`  | NOT NULL, default `NOW()`           |
 
 ### Valid Values
 
@@ -95,19 +132,20 @@ Browser (React)
               └─ Refetches GET /api/prospects → board updates
 ```
 
-### Example: Editing a prospect (PATCH)
+### Example: Dragging a card to a new column
 
 ```
 Browser (React)
-  └─ EditProspectForm submits updated fields
-     └─ apiRequest("PATCH", "/api/prospects/3", data)
-        └─ Express route handler                           [server/routes.ts]
-           └─ storage.getProspect(3) — verify exists       [server/storage.ts]
-           └─ Validate status/interestLevel if provided
-           └─ storage.updateProspect(3, updates)           [server/storage.ts]
-              └─ db.update(prospects).set(data).where(id=3)
-           └─ res.json(updatedProspect)
-        └─ Frontend invalidates cache → board re-renders with card in new column
+  └─ User drags card from "Bookmarked" to "Applied"
+     └─ DragDropContext.onDragEnd fires                    [client/src/pages/home.tsx]
+        └─ Extracts destination.droppableId = "Applied"
+        └─ apiRequest("PATCH", "/api/prospects/3", { status: "Applied" })
+           └─ Express route handler                        [server/routes.ts]
+              └─ Validates status is in STATUSES array
+              └─ storage.updateProspect(3, { status: "Applied" })
+              └─ res.json(updatedProspect)
+        └─ queryClient.invalidateQueries("/api/prospects")
+           └─ Board re-renders with card in "Applied" column
 ```
 
 ### File responsibilities
@@ -115,17 +153,55 @@ Browser (React)
 | File                        | Role                                                        |
 |-----------------------------|-------------------------------------------------------------|
 | `shared/schema.ts`         | Single source of truth for data shape, validation, and types |
+| `shared/prospect-filters.ts` | Pure function for filtering prospects by interest level     |
 | `server/index.ts`          | Boots Express, adds JSON/URL parsing, logging middleware, starts server |
 | `server/db.ts`             | Creates the PostgreSQL connection pool and Drizzle instance  |
 | `server/routes.ts`         | Defines API endpoints, validates input, calls storage        |
 | `server/storage.ts`        | Abstracts all database queries behind an interface           |
 | `server/prospect-helpers.ts` | Pure functions for pipeline logic (no DB, no Express)      |
-| `client/src/App.tsx`       | Wraps app in QueryClientProvider, TooltipProvider, Router    |
-| `client/src/pages/home.tsx` | Fetches prospects, groups by status, renders Kanban columns |
-| `client/src/components/prospect-card.tsx` | Renders a single card, handles delete, opens edit dialog |
+| `client/src/pages/home.tsx` | Fetches prospects, groups by status, renders drag-and-drop Kanban columns |
+| `client/src/components/prospect-card.tsx` | Renders a single card, handles delete, opens edit dialog, drag-aware |
 | `client/src/components/add-prospect-form.tsx` | Controlled form for creating a prospect          |
 | `client/src/components/edit-prospect-form.tsx` | Controlled form for editing a prospect (all fields) |
 | `client/src/lib/queryClient.ts` | Configures TanStack Query defaults and the `apiRequest` fetch wrapper |
+
+---
+
+## Testing
+
+The project has three tiers of tests:
+
+### Unit Tests (Jest)
+
+Test pure logic with no database or server dependencies.
+
+- `shared/__tests__/prospect-filters.test.ts` — Interest level filtering logic
+- `shared/__tests__/salary-validation.test.ts` — Zod schema salary validation
+- `shared/__tests__/status-transitions.test.ts` — Status enum validation via Zod schema
+- `server/__tests__/prospect-validation.test.ts` — `validateProspect`, `getNextStatus`, `isTerminalStatus` helpers
+
+### Integration Tests (Jest + supertest)
+
+Test API routes with a mocked storage layer — no database required.
+
+- `server/__tests__/routes-integration.test.ts` — All CRUD endpoints, input validation, error handling
+
+### End-to-End Tests (Playwright)
+
+Test full user flows in a real browser against a running app.
+
+- `e2e/drag-and-drop.spec.ts` — Dragging cards between columns, count updates, filter interaction, persistence
+- `e2e/filter-and-salary.spec.ts` — Interest filters, salary creation/editing/clearing, form validation
+
+### Running Tests
+
+```bash
+# Unit and integration tests
+npm test
+
+# End-to-end tests (requires Chromium)
+PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH=$(which chromium) npx playwright test
+```
 
 ---
 

@@ -41,7 +41,7 @@ function InterestIndicator({ level }: { level: string }) {
   }
 }
 
-export function ProspectCard({ prospect }: { prospect: Prospect }) {
+export function ProspectCard({ prospect, isDragging = false }: { prospect: Prospect; isDragging?: boolean }) {
   const { toast } = useToast();
   const [editOpen, setEditOpen] = useState(false);
 
@@ -62,7 +62,7 @@ export function ProspectCard({ prospect }: { prospect: Prospect }) {
     <>
       <div
         className="group bg-card border border-card-border rounded-md p-3 space-y-2 hover-elevate cursor-pointer transition-all duration-150"
-        onClick={() => setEditOpen(true)}
+        onClick={() => { if (!isDragging) setEditOpen(true); }}
         data-testid={`card-prospect-${prospect.id}`}
       >
         <div className="flex items-start justify-between gap-1">
